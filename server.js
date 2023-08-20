@@ -6,8 +6,6 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import path from "path";
 
-// internal imports
-
 
 dotenv.config();
 
@@ -47,7 +45,7 @@ app.use(function (req, res, next) {
   res.json({
     error: "Not found",
   });
-  return;
+
 });
 
 // Error handlers
@@ -56,7 +54,7 @@ app.use(function (err, req, res, next) {
   res.json({
     error: err.message,
   });
-  return;
+
 });
 // console.log(process.env.MONGO_CONNECTION_STRING);
 
