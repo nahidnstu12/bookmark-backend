@@ -2,8 +2,7 @@
   "name": "bookstore-backend",
   "version": "1.0.0",
   "description": "backend boilerplate for mern stack",
-  "type": "module",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "db:dev": "cp .env.development .env && NODE_ENV=development ts-node ./src/database/cli",
     "db:sync": "node ./dist/database/cli sync",
