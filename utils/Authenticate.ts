@@ -3,7 +3,6 @@ import jsonwebtoken from 'jsonwebtoken';
 import { Action } from 'routing-controllers';
 import Container from 'typedi';
 import { UserService } from '../service';
-// import { UserService } from "../services";
 export interface Itoken {
   userId: number;
   iat: number;
