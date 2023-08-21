@@ -13,17 +13,27 @@ console.log(`Current NODE_ENV is ${process.env.NODE_ENV}`);
 app.use(express.static(__dirname + '/view'));
 
 useExpressServer(app, routingControllerOptions);
+import { Server } from 'http';
+
 export function runServer(host: string, port: number) {
-  return new Promise((resolve, reject) => {
-    // tslint:disable-next-line: no-any
-    app.listen(port, host, (err: any) => {
+  return new Promise<void>((resolve, reject) => {
+    const server: Server = app.listen(port, host, (err?: Error) => {
       if (err) {
         reject(err);
+      } else {
+        resolve();
       }
-      resolve();
+    });
+
+    // Handle server close event to gracefully shut down the server if needed
+    server.on('close', () => {
+      // Perform any cleanup or other tasks before the server fully closes
+      console.log('Server is closing...');
     });
   });
 }
+
+
 
 import { spec } from './utils/swagger';
 
