@@ -8,11 +8,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "types": ["node", "jest"],
+    "types": ["node"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "@types",
+      "./node_modules/@types",
+    ]
   },
   "include": ["./"],
   "exclude": ["./dist/"]

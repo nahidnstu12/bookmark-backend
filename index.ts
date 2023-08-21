@@ -1,19 +1,15 @@
-import { runServer } from './server';
-import { connectDatabase } from './database';
+import express, { Express, Request, Response } from 'express';
+import dotenv from 'dotenv';
 
-const PORT = Number(process.env.PORT) || 3000; //default port
-const HOST = process.env.HOST || 'localhost';
+dotenv.config();
 
-async function startApplication() {
-    try {
-        await connectDatabase();
-        console.log('database is connected successfully');
-        await runServer(HOST, PORT);
-        console.log(`server is running on ${PORT}`);
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
-}
+const app: Express = express();
+const port = process.env.PORT;
 
-startApplication();
+app.get('/', (req: Request, res: Response) => {
+    res.send('Express + TypeScript Server' + req.query );
+});
+
+app.listen(port, () => {
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+});
