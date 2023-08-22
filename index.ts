@@ -1,19 +1,75 @@
-import { runServer } from './server';
-import { connectDatabase } from './database';
+import cookieParser from "cookie-parser";
+import express, { Response } from "express";
+import cors from "cors";
+import morgan from "morgan";
+import AppDataSource from "./database";
 
-const PORT = Number(process.env.PORT) || 5050; //default port
-const HOST = process.env.HOST || 'localhost';
+// import nodemailer from 'nodemailer';
+// (async function () {
+//   const credentials = await nodemailer.createTestAccount();
+//   console.log(credentials);
+// })();
 
-async function startApplication() {
-    try {
-        await connectDatabase();
-        console.log('database is connected successfully');
-        await runServer(HOST, PORT);
-        console.log(`server is running on ${PORT}`);
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
-}
+AppDataSource.initialize()
+  .then(async () => {
+    const app = express();
 
-startApplication();
+    // TEMPLATE ENGINE
+
+    // MIDDLEWARE
+
+    // 1. Body parser
+    app.use(express.json({ limit: "10kb" }));
+
+    // 2. Logger
+    if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+
+    // 3. Cookie Parser
+    app.use(cookieParser());
+
+    // 4. Cors
+    app.use(cors());
+    // app.use(
+    //   cors({
+    //     origin: config.get<string>("origin"),
+    //     credentials: true,
+    //   }),
+    // );
+
+    // ROUTES
+    // app.use("/api/auth", authRouter);
+    // app.use("/api/users", userRouter);
+    // app.use("/api/posts", postRouter);
+
+    // HEALTH CHECKER
+    app.get("/api/healthChecker", async (_, res: Response) => {
+      // const message = await redisClient.get('try');
+
+      res.status(200).json({
+        status: "success",
+        message: "Welcome to Node.js, we are happy to see you",
+      });
+    });
+
+    // UNHANDLED ROUTE
+    // app.all("*", (req: Request, res: Response, next: NextFunction) => {
+    //   next(new AppError(404, `Route ${req.originalUrl} not found`));
+    // });
+
+    // GLOBAL ERROR HANDLER
+    // app.use(
+    //   (error: AppError, req: Request, res: Response, next: NextFunction) => {
+    //     error.status = error.status || "error";
+    //     error.statusCode = error.statusCode || 500;
+    //
+    //     res.status(error.statusCode).json({
+    //       status: error.status,
+    //       message: error.message,
+    //     });
+    //   },
+    // );
+
+    app.listen(process.env.PORT);
+    console.log(`Server started on: http://localhost:${process.env.PORT}`);
+  })
+  .catch((error) => console.log(error));
