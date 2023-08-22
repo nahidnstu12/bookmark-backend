@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import jsonwebtoken from 'jsonwebtoken';
-import { Action } from 'routing-controllers';
-import Container from 'typedi';
-import { UserService } from '../service';
+import jsonwebtoken from "jsonwebtoken";
+import { Action } from "routing-controllers";
+import Container from "typedi";
+import { UserService } from "../service";
 export interface Itoken {
   userId: number;
   iat: number;
@@ -17,17 +17,17 @@ export class Authentication {
   }
 
   static generateToken(userId: number): string {
-    return jsonwebtoken.sign({ userId }, process.env.CRYPTO_SECRETKEY || '', {
-      algorithm: 'HS512',
-      expiresIn: '1d',
+    return jsonwebtoken.sign({ userId }, process.env.CRYPTO_SECRETKEY || "", {
+      algorithm: "HS512",
+      expiresIn: "1d",
     });
   }
 
   static verifyToken(token: string): boolean {
     const data: Itoken = jsonwebtoken.verify(
       token,
-      process.env.CRYPTO_SECRETKEY || '',
-      { algorithms: ['HS512'] },
+      process.env.CRYPTO_SECRETKEY || "",
+      { algorithms: ["HS512"] },
     ) as Itoken;
 
     if (data.iat * 1000 - new Date().getTime() > 0) return false;
@@ -38,8 +38,8 @@ export class Authentication {
   static refreshToken(token: string): string {
     const data: Itoken = jsonwebtoken.verify(
       token,
-      process.env.CRYPTO_SECRETKEY || '',
-      { algorithms: ['HS512'] },
+      process.env.CRYPTO_SECRETKEY || "",
+      { algorithms: ["HS512"] },
     ) as Itoken;
     if (data.exp - new Date().getTime() / 1000 < 60 * 60) {
       return Authentication.generateToken(data.userId);
@@ -47,10 +47,10 @@ export class Authentication {
     return token;
   }
 
-  static getUserIdByToken(token: string): Pick<Itoken, 'userId'> {
-    return jsonwebtoken.verify(token, process.env.CRYPTO_SECRETKEY || '', {
-      algorithms: ['HS512'],
-    }) as Pick<Itoken, 'userId'>;
+  static getUserIdByToken(token: string): Pick<Itoken, "userId"> {
+    return jsonwebtoken.verify(token, process.env.CRYPTO_SECRETKEY || "", {
+      algorithms: ["HS512"],
+    }) as Pick<Itoken, "userId">;
   }
 
   static async currentUserChecker(action: Action) {
@@ -58,14 +58,18 @@ export class Authentication {
     if (!Authentication.isToken(bearerToken)) {
       return false;
     }
-    const token = bearerToken.replace(/Bearer\s/, '');
+    const token = bearerToken.replace(/Bearer\s/, "");
     if (!Authentication.verifyToken(token)) {
       return false;
     }
+
     const userService = Container.get(UserService);
-    const user = await userService.getById(
-      Authentication.getUserIdByToken(token).userId,
-    );
+
+    // const user = await userService.getById(
+    //   Authentication.getUserIdByToken(token).userId,
+    // );
+    await userService.getById();
+    const user = {};
 
     action.request.query.user = user;
     return user;

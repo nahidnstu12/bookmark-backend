@@ -1,7 +1,5 @@
-import { createConnection } from 'typeorm';
+import { DataSource } from "typeorm";
+import { typeOrmConfig } from "./config";
+const AppDataSource = new DataSource(typeOrmConfig);
 
-import { typeOrmConfig } from './config';
-
-export async function connectDatabase() {
-  return createConnection(typeOrmConfig);
-}
+export default AppDataSource;

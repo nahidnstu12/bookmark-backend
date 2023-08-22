@@ -1,9 +1,9 @@
-import path from 'path';
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import path from "path";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 // import { NamingStrategy } from './NamingStrategy';
-import '../utils/env';
+import "../utils/env";
 const typeOrmConfig: PostgresConnectionOptions = {
-  type: 'postgres',
+  type: "postgres",
   host: process.env.DB_HOST,
   // namingStrategy: new NamingStrategy(),
   port: Number(process.env.DB_PORT),
@@ -11,9 +11,9 @@ const typeOrmConfig: PostgresConnectionOptions = {
   password: process.env.DB_PW,
   database: process.env.DATABASE,
   synchronize: true,
-  logging: false,
-  entities: [`${path.join(__dirname, '..', 'model')}/**.[tj]s`],
-  migrations: [`${path.join(__dirname, '..', 'model')}/migration/**.[tj]s`],
+  logging: true,
+  entities: [`${path.join(__dirname, "..", "model")}/**.[tj]s`],
+  migrations: [`${path.join(__dirname, "..", "model")}/migration/**.[tj]s`],
 };
 
 export { typeOrmConfig };
