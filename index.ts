@@ -4,21 +4,12 @@ import cors from "cors";
 import morgan from "morgan";
 import AppDataSource from "./database";
 
-// import nodemailer from 'nodemailer';
-// (async function () {
-//   const credentials = await nodemailer.createTestAccount();
-//   console.log(credentials);
-// })();
-
 AppDataSource.initialize()
   .then(async () => {
     const app = express();
 
-    // TEMPLATE ENGINE
+    console.log("debug 1:", process.env.DB_PW, process.env.DB_USER);
 
-    // MIDDLEWARE
-
-    // 1. Body parser
     app.use(express.json({ limit: "10kb" }));
 
     // 2. Logger
@@ -29,12 +20,6 @@ AppDataSource.initialize()
 
     // 4. Cors
     app.use(cors());
-    // app.use(
-    //   cors({
-    //     origin: config.get<string>("origin"),
-    //     credentials: true,
-    //   }),
-    // );
 
     // ROUTES
     // app.use("/api/auth", authRouter);
@@ -47,7 +32,7 @@ AppDataSource.initialize()
 
       res.status(200).json({
         status: "success",
-        message: "Welcome to Node.js, we are happy to see you",
+        message: "Welcome to Bookstore, we are happy to see you",
       });
     });
 
@@ -72,4 +57,4 @@ AppDataSource.initialize()
     app.listen(process.env.PORT);
     console.log(`Server started on: http://localhost:${process.env.PORT}`);
   })
-  .catch((error) => console.log(error));
+  .catch((error) => console.log("server error: ", error));
