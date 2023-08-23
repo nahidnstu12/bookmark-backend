@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
-export default abstract class Model extends BaseEntity {
+class AbstractEntity extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
@@ -15,3 +15,5 @@ export default abstract class Model extends BaseEntity {
   @UpdateDateColumn()
   updated_at!: Date;
 }
+
+export default AbstractEntity;

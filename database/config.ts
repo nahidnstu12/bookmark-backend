@@ -2,6 +2,7 @@ import path from "path";
 import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 import dotenv from "dotenv";
+import { Book } from "../models/BookModel";
 dotenv.config();
 // const typeOrmConfig: PostgresConnectionOptions = {
 //   type: "postgres",
@@ -26,8 +27,8 @@ const typeOrmConfig: PostgresConnectionOptions = {
   synchronize: true,
   logging: false,
   // namingStrategy: new NamingStrategy(),
-  entities: [`${path.join(__dirname, "..", "model")}/**.[tj]s`],
-  migrations: [`${path.join(__dirname, "..", "model")}/migration/**.[tj]s`],
+  entities: [Book],
+  migrations: [`${path.join(__dirname, "..", "models")}/migration/**.[tj]s`],
 };
 
 export { typeOrmConfig };

@@ -3,6 +3,7 @@ import express, { Response } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import AppDataSource from "./database";
+import bookRoute from "./route/bookRoute";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -22,9 +23,7 @@ AppDataSource.initialize()
     app.use(cors());
 
     // ROUTES
-    // app.use("/api/auth", authRouter);
-    // app.use("/api/users", userRouter);
-    // app.use("/api/posts", postRouter);
+    app.use("/api/books", bookRoute);
 
     // HEALTH CHECKER
     app.get("/api/healthChecker", async (_, res: Response) => {
