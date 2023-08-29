@@ -1,8 +1,11 @@
 import express from "express";
-import { getBooksHnadler } from "../controller/BookController";
+import {
+  createBookHnadler,
+  getBooksHnadler,
+} from "../controller/BookController";
 
 const router = express.Router();
 
-router.route("/").get(getBooksHnadler);
+router.route("/").get(getBooksHnadler).post(createBookHnadler);
 
 export default router;

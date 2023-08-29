@@ -18,3 +18,11 @@ export const findBooks = async (
     relations,
   });
 };
+
+export const createBook = async (input: Partial<Book>) => {
+  return await bookRepository.save(bookRepository.create({ ...input }));
+};
+
+export const getBook = async (bookId: string) => {
+  return await bookRepository.findOneBy({ id: bookId });
+};

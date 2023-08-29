@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { findBooks } from "../services/book.service";
+import { createBook, findBooks } from "../services/book.service";
 
 export const getBooksHnadler = async (
   _: Request<any>,
@@ -19,4 +19,70 @@ export const getBooksHnadler = async (
   } catch (err) {
     next(err);
   }
+};
+
+export const createBookHnadler = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+    const book = await createBook(req.body);
+    res.status(201).json({
+      status: "Success",
+      data: book,
+    });
+  } catch (err: any) {
+    if (err.code === "23505") {
+      return res.status(409).json({
+        status: "fail",
+        message: "Post with that title already exist",
+      });
+    }
+    next(err);
+  }
+};
+
+export const updateBookHnadler = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+  } catch (err) {}
+};
+
+export const removeBookHnadler = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+  } catch (err) {}
+};
+
+export const getSingleBookHandle = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+  } catch (err) {}
+};
+export const getNewArrivalBook = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+  } catch (err) {}
+};
+
+export const getBestSellingBookHandler = async (
+  req: Request<any>,
+  res: Response<any>,
+  next: NextFunction,
+): Promise<any> => {
+  try {
+  } catch (err) {}
 };
