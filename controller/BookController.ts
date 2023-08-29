@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createBook, findBooks } from "../services/book.service";
+import { createBook, findBooks, getBook } from "../services/book.service";
 
 export const getBooksHnadler = async (
   _: Request<any>,
@@ -11,10 +11,8 @@ export const getBooksHnadler = async (
 
     res.status(200).json({
       status: "success",
-      results: books.length,
-      data: {
-        books,
-      },
+      total: books.length,
+      data: books,
     });
   } catch (err) {
     next(err);
@@ -36,7 +34,7 @@ export const createBookHnadler = async (
     if (err.code === "23505") {
       return res.status(409).json({
         status: "fail",
-        message: "Post with that title already exist",
+        message: "Book is already exist. Please provide another book name.",
       });
     }
     next(err);
@@ -49,40 +47,68 @@ export const updateBookHnadler = async (
   next: NextFunction,
 ): Promise<any> => {
   try {
-  } catch (err) {}
+    const book = await getBook(req.params.bookId);
+    if (!book) {
+      return next("Book not found");
+    }
+    Object.assign(book, req.body);
+    const updatedBook = await book.save();
+    return res.status(200).send({ status: "success", data: updatedBook });
+  } catch (err) {
+    next(err);
+  }
 };
-
-export const removeBookHnadler = async (
+//
+export const removeBookHandler = async (
   req: Request<any>,
   res: Response<any>,
   next: NextFunction,
 ): Promise<any> => {
   try {
-  } catch (err) {}
-};
+    const book = await getBook(req.params.bookId);
+    if (!book) {
+      return next("Book not found");
+    }
+    await book.remove();
 
+    res.status(204).json({
+      status: "success",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+//
 export const getSingleBookHandle = async (
   req: Request<any>,
   res: Response<any>,
   next: NextFunction,
 ): Promise<any> => {
   try {
-  } catch (err) {}
-};
-export const getNewArrivalBook = async (
-  req: Request<any>,
-  res: Response<any>,
-  next: NextFunction,
-): Promise<any> => {
-  try {
-  } catch (err) {}
-};
+    const book = await getBook(req.params.bookId);
 
-export const getBestSellingBookHandler = async (
-  req: Request<any>,
-  res: Response<any>,
-  next: NextFunction,
-): Promise<any> => {
-  try {
-  } catch (err) {}
+    if (!book) {
+      return next("Book not found");
+    }
+    return res.status(200).send({ status: "success", data: book });
+  } catch (err) {
+    next(err);
+  }
 };
+// export const getNewArrivalBook = async (
+//   req: Request<any>,
+//   res: Response<any>,
+//   next: NextFunction,
+// ): Promise<any> => {
+//   try {
+//   } catch (err) {}
+// };
+//
+// export const getBestSellingBookHandler = async (
+//   req: Request<any>,
+//   res: Response<any>,
+//   next: NextFunction,
+// ): Promise<any> => {
+//   try {
+//   } catch (err) {}
+// };

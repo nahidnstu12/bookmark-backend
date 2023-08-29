@@ -1,5 +1,6 @@
-import { object, string, TypeOf, coerce, nativeEnum, boolean } from "zod";
-import { BookStatus } from "../utils/enum";
+import {boolean, coerce, nativeEnum, object, string, TypeOf} from "zod";
+import {BookStatus} from "../utils/enum";
+
 export const createBookSchema = object({
   body: object({
     name: string({
@@ -12,10 +13,8 @@ export const createBookSchema = object({
       required_error: "published_year is required",
       invalid_type_error: "Wrong format",
     }),
-    book_status: nativeEnum(BookStatus),
-    best_selling: boolean({
-      required_error: "Name is required",
-    }),
+    book_status: nativeEnum(BookStatus).default(BookStatus.COMMING_SOON),
+    best_selling: boolean().default(false),
   }),
 });
 
