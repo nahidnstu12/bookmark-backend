@@ -1,25 +1,19 @@
-import cookieParser from "cookie-parser";
 import express, { Response } from "express";
-import cors from "cors";
-import morgan from "morgan";
 import AppDataSource from "./database";
+import applyMiddleware from "./middleware/initial";
 import bookRoute from "./route/bookRoute";
 
 AppDataSource.initialize()
   .then(async () => {
     const app = express();
 
-    app.use(express.json({ limit: "10kb" }));
-
-    if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
-    app.use(cookieParser());
-    app.use(cors());
+    applyMiddleware(app);
 
     // ROUTES
     app.use("/api/books", bookRoute);
 
     // HEALTH CHECKER
-    app.get("/api/health", async (_, res: Response) => {
+    app.get("/api/v1/health", async (_, res: Response) => {
       // const message = await redisClient.get('try');
 
       res.status(200).json({
