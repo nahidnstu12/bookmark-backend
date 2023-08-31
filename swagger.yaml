@@ -9,7 +9,7 @@ info:
     email: support@fsarmy.com
 servers:
   - description: Dev
-    url: "http://localhost:4000/api/v1"
+    url: "http://localhost:6050/api/v1"
 tags:
   - name: Auth
     description: Authentication Endpoints (public)
