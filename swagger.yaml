@@ -1,7 +1,24 @@
 openapi: 3.0.0
 info:
-  title: Express API with Swagger
-  version: 1.0.0
+  version: "1.0.0"
+  title: "FSArmy - My Blog API"
+  description: "This is the first professional api project we creating in full-stack army. This is a simple blog api application where anyone can create a new account, login to their system and create articles that will be visible publicly."
+  contact:
+    name: FS Army
+    url: https://fsarmy.com
+    email: support@fsarmy.com
+servers:
+  - description: Dev
+    url: "http://localhost:4000/api/v1"
+tags:
+  - name: Auth
+    description: Authentication Endpoints (public)
+  - name: Article
+    description: Article Endpoints (public + private)
+  - name: Comment
+    description: Comment Endpoints (Private)
+  - name: User
+    description: User Endpoints (admin only)
 paths:
   /health:
     get:

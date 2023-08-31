@@ -18,7 +18,7 @@ const applyMiddleware = (app: any) => {
   app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
   app.use(
     OpenApiValidator.middleware({
-      apiSpec: swaggerDoc,
+      apiSpec: "./swagger.yaml",
       validateResponses: true,
     }),
   );

@@ -25,7 +25,7 @@ const typeOrmConfig: PostgresConnectionOptions = {
   password: process.env.DB_PW, // Make sure it's a string
   database: process.env.DATABASE,
   synchronize: true,
-  logging: false,
+  logging: true,
   // namingStrategy: new NamingStrategy(),
   entities: [Book],
   migrations: [`${path.join(__dirname, "..", "models")}/migration/**.[tj]s`],

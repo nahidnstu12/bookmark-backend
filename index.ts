@@ -1,4 +1,4 @@
-import express, { Response } from "express";
+import express, { Request, Response } from "express";
 import AppDataSource from "./database";
 import applyMiddleware from "./middleware/initial";
 import bookRoute from "./route/bookRoute";
@@ -39,6 +39,14 @@ AppDataSource.initialize()
     //     });
     //   },
     // );
+
+    app.use((err: any, _: Request, res: Response) => {
+      // format error
+      res.status(Number(err.status) || 500).json({
+        message: err.message,
+        errors: err.errors,
+      });
+    });
 
     app.listen(process.env.PORT);
     console.log(`Server started on: http://localhost:${process.env.PORT}`);
