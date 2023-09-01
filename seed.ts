@@ -1,10 +1,7 @@
 import "reflect-metadata";
 import { DataSource, DataSourceOptions } from "typeorm";
 import { runSeeders, SeederOptions } from "typeorm-extension";
-
-import dotenv from "dotenv";
-
-dotenv.config();
+import "./utils/dot-env";
 
 const typeOrmConfig: DataSourceOptions & SeederOptions = {
   type: "mysql",
@@ -17,8 +14,6 @@ const typeOrmConfig: DataSourceOptions & SeederOptions = {
   synchronize: true,
   logging: true,
   entities: ["models/*{.ts,.js}"],
-  // factories: [BookFactory],
-  // seeds: [InitialDatabaseSeed],
   seeds: ["seeding/seeder/*{.ts,.js}"],
   factories: ["seeding/factories/*{.ts,.js}"],
 };

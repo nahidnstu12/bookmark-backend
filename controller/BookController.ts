@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { createBook, findBooks, getBook } from "../services/book.service";
 
-export const getBooksHnadler = async (
+export const getBooksHandler = async (
   _: Request<any>,
   res: Response,
   next: NextFunction,
@@ -19,7 +19,7 @@ export const getBooksHnadler = async (
   }
 };
 
-export const createBookHnadler = async (
+export const createBookHandler = async (
   req: Request<any>,
   res: Response<any>,
   next: NextFunction,
@@ -41,7 +41,7 @@ export const createBookHnadler = async (
   }
 };
 
-export const updateBookHnadler = async (
+export const updateBookHandler = async (
   req: Request<any>,
   res: Response<any>,
   next: NextFunction,

@@ -1,16 +1,14 @@
 import path from "path";
 
-import dotenv from "dotenv";
+import "../utils/dot-env";
 import { DataSourceOptions } from "typeorm";
-
-dotenv.config();
 
 const typeOrmConfig: DataSourceOptions = {
   type: "mysql",
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
-  password: process.env.DB_PW, // Make sure it's a string
+  password: process.env.DB_PW,
   database: process.env.DATABASE,
   synchronize: true,
   logging: true,
