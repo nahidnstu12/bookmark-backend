@@ -1,5 +1,5 @@
 import { BookStatus } from "../utils/enum";
-import { Entity, Column } from "typeorm";
+import { Column, Entity } from "typeorm";
 import AbstractEntity from "./BaseModel";
 
 @Entity("books")
@@ -27,5 +27,5 @@ export class Book extends AbstractEntity {
   @Column({
     nullable: true,
   })
-  best_selling!: boolean;
+  best_selling?: number;
 }

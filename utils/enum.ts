@@ -11,4 +11,7 @@ export enum BookStatus {
   PRE_ORDER = 4,
 }
 
-
+export enum YesOrNo {
+  YES = 1,
+  NO = 0,
+}

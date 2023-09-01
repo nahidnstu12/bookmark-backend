@@ -1,24 +1,12 @@
 import path from "path";
-import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 import dotenv from "dotenv";
-import { Book } from "../models/BookModel";
+import { DataSourceOptions } from "typeorm";
+
 dotenv.config();
-// const typeOrmConfig: PostgresConnectionOptions = {
-//   type: "postgres",
-//   host: process.env.DB_HOST,
-//   // namingStrategy: new NamingStrategy(),
-//   port: Number(process.env.DB_PORT),
-//   username: process.env.DB_USER,
-//   password: process.env.DB_PW,
-//   database: process.env.DATABASE,
-//   synchronize: true,
-//   logging: false,
-//   entities: [`${path.join(__dirname, "..", "model")}/**.[tj]s`],
-//   migrations: [`${path.join(__dirname, "..", "model")}/migration/**.[tj]s`],
-// };
-const typeOrmConfig: PostgresConnectionOptions = {
-  type: "postgres",
+
+const typeOrmConfig: DataSourceOptions = {
+  type: "mysql",
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USER,
@@ -27,7 +15,8 @@ const typeOrmConfig: PostgresConnectionOptions = {
   synchronize: true,
   logging: true,
   // namingStrategy: new NamingStrategy(),
-  entities: [Book],
+
+  entities: ["models/*{.ts,.js}"],
   migrations: [`${path.join(__dirname, "..", "models")}/migration/**.[tj]s`],
 };
 
