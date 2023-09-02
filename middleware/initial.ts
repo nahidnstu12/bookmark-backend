@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import * as fs from "fs";
 import YAML from "yamljs";
-import { middleware } from "express-openapi-validator";
 
 const swaggerFilePath = path.join(__dirname, "../swagger.yaml");
 
@@ -21,19 +20,18 @@ const applyMiddleware = (app: any) => {
   app.use(cookieParser());
   app.use(cors());
 
-  // const specs = swaggerJsdoc(options);
   app.use(
     "/api/v1/docs",
     swaggerUI.serve,
     swaggerUI.setup(swaggerDoc, { explorer: true }),
   );
-  app.use(
-    middleware({
-      apiSpec: swaggerDoc,
-      validateResponses: true,
-      validateRequests: true,
-    }),
-  );
+  // app.use(
+  //   middleware({
+  //     apiSpec: swaggerDoc,
+  //     validateResponses: true,
+  //     validateRequests: true,
+  //   }),
+  // );
 };
 
 export default applyMiddleware;

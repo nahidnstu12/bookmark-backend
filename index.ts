@@ -10,7 +10,7 @@ AppDataSource.initialize()
     applyMiddleware(app);
 
     // ROUTES
-    app.use("/api/books", bookRoute);
+    app.use("/api/v1/books", bookRoute);
 
     // HEALTH CHECKER
     app.get("/api/v1/health", async (_, res: Response) => {
