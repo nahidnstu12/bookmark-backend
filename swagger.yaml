@@ -11,6 +11,8 @@ servers:
   - description: Dev
     url: "http://localhost:6050/api/v1"
 tags:
+  - name: Test API
+    description: Testing Route
   - name: Auth
     description: Authentication Endpoints (public)
   - name: Article
@@ -23,6 +25,7 @@ paths:
   /health:
     get:
       summary: Get the root endpoint
+      tags: [Test API]
       responses:
         '200':
           description: Successful response
