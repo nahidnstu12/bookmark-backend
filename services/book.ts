@@ -4,7 +4,7 @@ import {
   FindOptionsWhere,
 } from "typeorm";
 import AppDataSource from "../database";
-import { Book } from "../models/BookModel";
+import { Book } from "../models/Book";
 
 const bookRepository = AppDataSource.getRepository(Book);
 export const findBooks = async (

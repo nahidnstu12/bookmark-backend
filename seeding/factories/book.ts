@@ -1,9 +1,9 @@
 import { Faker } from "@faker-js/faker";
 import { setSeederFactory } from "typeorm-extension";
-import { Book } from "../../models/BookModel";
+import { Book } from "../../models/Book";
 import { BookStatus, YesOrNo } from "../../utils/enum";
 
-export const BookFactory = setSeederFactory(Book, (faker: Faker) => {
+export const Book = setSeederFactory(Book, (faker: Faker) => {
   const book = new Book();
 
   book.name = faker.commerce.productName();

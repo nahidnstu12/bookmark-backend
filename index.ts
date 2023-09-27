@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import AppDataSource from "./database";
-import bookRoute from "./route/bookRoute";
+import bookRoute from "./route/book";
 import applyMiddleware from "./middleware/initial";
 
 AppDataSource.initialize()
