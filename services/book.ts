@@ -6,23 +6,32 @@ import {
 import AppDataSource from "../database";
 import { Book } from "../models/Book";
 
-const bookRepository = AppDataSource.getRepository(Book);
-export const findBooks = async (
-  where: FindOptionsWhere<Book> = {},
-  select: FindOptionsSelect<Book> = {},
-  relations: FindOptionsRelations<Book> = {},
-) => {
-  return await bookRepository.find({
-    where,
-    select,
-    relations,
-  });
-};
+class BookService {
+  private bookRepository = AppDataSource.getRepository(Book);
 
-export const createBook = async (input: Partial<Book>) => {
-  return await bookRepository.save(bookRepository.create({ ...input }));
-};
+  public async readAll(
+    where: FindOptionsWhere<Book> = {},
+    select: FindOptionsSelect<Book> = {},
+    relations: FindOptionsRelations<Book> = {},
+  ) {
+    return await this.bookRepository.find({
+      where,
+      select,
+      relations,
+    });
+  }
 
-export const getBook = async (bookId: string) => {
-  return await bookRepository.findOneBy({ id: bookId });
-};
+  public async create(input: Partial<Book>) {
+    return await this.bookRepository.save(
+      this.bookRepository.create({ ...input }),
+    );
+  }
+
+  public async read(bookId: string): Promise<Book | null> {
+    return await this.bookRepository.findOne({
+      where: { id: bookId },
+    });
+  }
+}
+
+export default new BookService();

@@ -1,4 +1,5 @@
 ## Bookmark Backend API Project
+This document outlines the functional and non-functional requirements for the Book Website, a platform for consumers to explore, purchase, and review books, and for administrators to manage the platform. The system encompasses book categorization, user management, cart management, order processing, and content management. [Read More](https://nahid-me.notion.site/Bookmark-Full-stack-Management-46b4e8d495cd4218a40ae5f77bfc7c26?pvs=4)
 
 ### How to run this project
 ```
@@ -32,39 +33,14 @@ yarn run test auth.test.js  --watchAll=false
 
 ### Technology we used
 - Express TS
-- TypeORM (PG)
+- TypeORM (mysql)
 - SwaggerUI for docs
 
-### Collections:
 
-- User
-- Book
-- Category
-- Tag
-- Author
-- Publisher
-- Language
-- Ratting
-- Variant
-- Payment
-- order
-
-### API’s:
-
-- Author
-- Book
-- Cart
-- Category
-- Language
-- Order
-- Payment
-- Publisher
-- Ratings
-- Tag
-- Variant
 
 ### Important Links
-**UML diagram :** [bookmark uml diagram](https://app.diagrams.net/#G1wNdCHSYpqH2e38unt7cXo60WwZlVuBpd)
+**Documentaion:** [Docs Link](https://nahid-me.notion.site/Bookmark-Full-stack-Management-46b4e8d495cd4218a40ae5f77bfc7c26?pvs=4)
+**UML diagram :** [bookmark uml diagram](https://drive.google.com/file/d/10WlpXiS-C_VKhNYR7_HMWUusxoNLVSC5/view?usp=sharing)
 
 ### Contributors
 - Mazharul Islam Nahid

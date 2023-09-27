@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { createBook, findBooks, getBook } from "../services/book";
+import bookService from "../services/book";
 
 export class BookController {
   static async readAll(
@@ -8,7 +8,7 @@ export class BookController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const books = await findBooks({}, {}, {});
+      const books = await bookService.readAll({}, {}, {});
 
       res.status(200).json({
         status: "success",
@@ -26,7 +26,7 @@ export class BookController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const book = await createBook(req.body);
+      const book = await bookService.create(req.body);
       res.status(201).json({
         status: "Success",
         data: book,
@@ -42,7 +42,7 @@ export class BookController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const book = await getBook(req.params.bookId);
+      const book = await bookService.read(req.params.bookId);
       if (!book) {
         return next("Book not found");
       }
@@ -60,7 +60,7 @@ export class BookController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const book = await getBook(req.params.bookId);
+      const book = await bookService.read(req.params.bookId);
       if (!book) {
         return next("Book not found");
       }
@@ -80,7 +80,7 @@ export class BookController {
     next: NextFunction,
   ): Promise<void> {
     try {
-      const book = await getBook(req.params.bookId);
+      const book = await bookService.read(req.params.bookId);
 
       if (!book) {
         return next("Book not found");
