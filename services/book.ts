@@ -4,7 +4,7 @@ import {
   FindOptionsWhere,
 } from "typeorm";
 import AppDataSource from "../database";
-import { Book } from "../models/Book";
+import { Book } from "../models/book";
 
 class BookService {
   private bookRepository = AppDataSource.getRepository(Book);
@@ -31,6 +31,24 @@ class BookService {
     return await this.bookRepository.findOne({
       where: { id: bookId },
     });
+  }
+
+  public async update(id: string, data: any) {
+    const bookData = await this.read(id);
+
+    if (!bookData) {
+      return false;
+    }
+    Object.assign(bookData, data);
+    return await this.bookRepository.save(bookData);
+  }
+
+  public async remove(id: string) {
+    const bookData = await this.read(id);
+    if (!bookData) {
+      return false;
+    }
+    return await this.bookRepository.delete(id);
   }
 }
 

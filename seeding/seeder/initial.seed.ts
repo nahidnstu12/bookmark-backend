@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import { Seeder, SeederFactoryManager } from "typeorm-extension";
-import { Book } from "../../models/Book";
+import { Book } from "../../models/book";
 
 export default class InitialDatabaseSeed implements Seeder {
   public async run(

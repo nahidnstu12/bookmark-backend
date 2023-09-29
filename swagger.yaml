@@ -159,14 +159,14 @@ paths:
                               type: integer
                               format: int32
                               example: 1b9af82d-38cc-4191-8d9e-a1b9d7ca8f23
-                            name:
+                            title:
                               type: string
                               example: Book name
-                            published_year:
+                            publishedYear:
                               type: string
                               format: date
                               example: 2023-03-01 19:53:18
-                            book_status:
+                            status:
                               type: number
                               format: number
                               example: 1
@@ -174,12 +174,19 @@ paths:
                               type: string
                               format: text
                               example: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD,
-                            best_selling:
+                            bestSelling:
                               type: number
                               format: number
                               example: 1
+                            totalPage:
+                              type: number
+                              format: number
+                              example: 100
+                            editions:
+                              type: string
+                              example: [ 2015 ]
 
-                          required: [ id, name, description, published_year ]
+                          required: [ id, title, description, publishedYear, status ]
                         - $ref: "#/components/schemas/Timestamp"
 
         "400":
@@ -199,27 +206,35 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                title:
                   type: string
                   example: Book name
-                published_year:
+                publishedYear:
                   type: string
                   format: date
                   example: 2023-03-01 19:53:18
-                book_status:
+                status:
                   type: number
-                  enum: [ 1, 2, 3, 4 ]
+                  format: number
                   example: 1
                 description:
                   type: string
                   format: text
                   example: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD,
-                best_selling:
+                bestSelling:
                   type: number
                   format: number
                   example: 1
+                totalPage:
+                  type: number
+                  format: number
+                  example: 100
+                editions:
+                  type: string
+                  format: json
+                  example: "[\"2015\", \"2020\"]"
                 
-              required: [ name, description, published_year ]
+              required: [ id, title, description, publishedYear, status ]
       responses:
         "201":
           description: Successfully created a new book
@@ -414,25 +429,32 @@ components:
               type: integer
               format: int32
               example: 1b9af82d-38cc-4191-8d9e-a1b9d7ca8f23
-            name:
+            title:
               type: string
               example: Book name
-            published_year:
-                type: string
-                format: date
-                example: 2023-03-01 19:53:18
-            book_status:
-                type: number
-                enum: [ 1, 2, 3, 4 ]
-                example: 1
+            publishedYear:
+              type: string
+              format: date
+              example: 2023-03-01 19:53:18
+            status:
+              type: number
+              format: number
+              example: 1
             description:
-                type: string
-                format: text
-                example: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD,
-            best_selling:
-                type: number
-                format: number
-                example: 1
+              type: string
+              format: text
+              example: New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD,
+            bestSelling:
+              type: number
+              format: number
+              example: 1
+            totalPage:
+              type: number
+              format: number
+              example: 100
+            editions:
+              type: string
+              example: [ 2015 ]
               
           required: [  name, description, published_year ]
         - $ref: "#/components/schemas/Timestamp"

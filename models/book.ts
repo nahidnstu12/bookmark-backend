@@ -1,23 +1,23 @@
 import { BookStatus } from "../utils/enum";
 import { Column, Entity } from "typeorm";
-import AbstractEntity from "./BaseModel";
+import AbstractEntity from "./base-model";
 
 @Entity("books")
 export class Book extends AbstractEntity {
   @Column({
     unique: true,
   })
-  name!: string;
+  title!: string;
 
   @Column({ nullable: false })
-  published_year!: Date;
+  publishedYear!: Date;
 
   @Column({
     type: "enum",
     enum: BookStatus,
-    default: BookStatus.COMMING_SOON,
+    default: BookStatus.COMING_SOON,
   })
-  book_status!: number;
+  status!: number;
 
   @Column({
     length: 1000,
@@ -27,5 +27,13 @@ export class Book extends AbstractEntity {
   @Column({
     nullable: true,
   })
-  best_selling?: number;
+  bestSelling?: number;
+  @Column({
+    nullable: true,
+  })
+  totalPage?: number;
+  @Column({
+    nullable: true,
+  })
+  editions?: string;
 }
