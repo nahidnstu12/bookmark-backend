@@ -1,7 +1,8 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import AppDataSource from "./database";
-import bookRoute from "./route/bookRoute";
 import applyMiddleware from "./middleware/initial";
+import bookRoute from "./route/book";
+// import { notFoundMiddleware } from "./utils/error";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -40,11 +41,15 @@ AppDataSource.initialize()
     //   },
     // );
 
-    app.use((err: any, _: Request, res: Response) => {
+    // app.use(notFoundMiddleware);
+
+    app.use((err: any, _: Request, res: Response, __: NextFunction) => {
       // format error
+      console.log("error handler", err);
       res.status(Number(err.status) || 500).json({
         message: err.message,
         errors: err.errors,
+        dev_note: "global error",
       });
     });
 
